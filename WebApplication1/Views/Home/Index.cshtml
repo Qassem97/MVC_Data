@@ -1,0 +1,34 @@
+﻿@model List<Person>
+@{
+    ViewData["Title"] = "Home Index";
+
+
+}
+
+<h1>Home Index</h1>
+
+<form method="post" asp-action="SingUp">
+    <input type="text" name="name" value="" placeholder="Name" />
+    <input type="text" name="number" value="" placeholder="Phone" />
+    <input type="text" name="city" value="" placeholder="City" />
+    <input type="submit" value="Add User" />
+</form>
+
+<form asp-controller="Home" asp-action="Index">
+    <p>
+        Title: <input type="text" name="searchString">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table>
+    @foreach (var item in Model)
+    {
+        @await Html.PartialAsync("_SingUp", item)
+
+    }
+
+</table>
+
+
+

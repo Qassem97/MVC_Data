@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Title</title>
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>New Person</h1>
+        <a asp-action="Index" asp-controller="Home">Home</a>
+    </header>
+    <div>
+        @RenderBody()
+    </div>
+
+
+    <footer>
+
+        <p>Made by: Qassem &copy;</p>
+    </footer>
+</body>
+</html>
