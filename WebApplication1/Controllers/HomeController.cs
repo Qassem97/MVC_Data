@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MVCData.Models;
+using MVCData.ViewModel;
 
 namespace MVCData.Controllers
 {
@@ -15,26 +16,24 @@ namespace MVCData.Controllers
             _personService = personService;
         }
 
-        public IActionResult Index(string name, string number, string city)
+        public IActionResult Index()
         {
-            var people = _personService.GetPeople();
-            return View(people);
+            var vm = new PersonViewModel();
+            vm.People = _personService.GetPeople();
+            return View(vm);
         }
 
         [HttpPost]
-        public IActionResult SingUp(string name, string number, string city)
+        public IActionResult SingUp(Person person)
         {
-            if (name == null || city == null || number == null)
+            if (!ModelState.IsValid)
             {
-                //string.IsNullOrWhiteSpace(name); DOSENT WORK!
-                //string.IsNullOrWhiteSpace(number);
-                //string.IsNullOrWhiteSpace(city);
                 return RedirectToAction("Index");
 
             }
             else
             {
-                _personService.CreateUser(name, number, city);
+                _personService.CreateUser(person.Name, person.Number, person.City);
                 return RedirectToAction("Index");
             }
 
@@ -69,8 +68,22 @@ namespace MVCData.Controllers
         }
         public IActionResult SingUp()
         {
-            Person model = new Person(); 
+            Person model = new Person();
             return PartialView("_SingUp", model);
+        }
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            _personService.FindPerson(id);
+            return PartialView("_Edit", _personService.FindPerson(id));
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Person person)
+        {
+            _personService.UpdatePerson(person);
+            return PartialView("_Edit", _personService.UpdatePerson(person));
+
         }
     }
 }

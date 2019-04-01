@@ -53,11 +53,11 @@ namespace MVCData.Models
             return WasRemoved;
         }
 
-        public Person FindPerson(int id, string name, string city)
+        public Person FindPerson(int id)
         {
             foreach (Person item in people)
             {
-                if (item.Id == id || item.Name == name || item.City == city)
+                if (item.Id == id )
                 {
                     return item;
                 }
@@ -72,7 +72,7 @@ namespace MVCData.Models
 
         public bool UpdatePerson(Person person)
         {
-            bool wasUpdated = false;
+           
 
             foreach (Person orginal in people)
 
@@ -83,12 +83,11 @@ namespace MVCData.Models
                     orginal.Number = person.Number;
                     orginal.City = person.City;
 
-                    wasUpdated = true;
-                    break;
+                    return true;
                 }
             }
 
-            return wasUpdated;
+            return false;
         }
     }
 }

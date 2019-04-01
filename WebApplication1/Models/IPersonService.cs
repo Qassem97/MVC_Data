@@ -10,7 +10,7 @@ namespace MVCData.Models
         //C
         Person CreateUser(string name, string number, string city);
         //R 
-        Person FindPerson(int id, string name, string city);
+        Person FindPerson(int id);
         List<Person> GetPeople();
         //U
         bool UpdatePerson(Person person);

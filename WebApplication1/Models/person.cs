@@ -11,6 +11,7 @@ namespace MVCData.Models
         public int Id { get; set; }
         [Phone]
         public string Number { get; set; }
+        [Required]
         public string Name { get; set; }
         public string City { get; set; }
     }

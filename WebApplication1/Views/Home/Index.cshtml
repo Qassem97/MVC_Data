@@ -1,4 +1,4 @@
-﻿@model List<Person>
+﻿@model PersonViewModel
 @{
     ViewData["Title"] = "Home Index";
 
@@ -8,9 +8,9 @@
 <h1>Home Index</h1>
 
 <form method="post" asp-action="SingUp">
-    <input type="text" name="name" value="" placeholder="Name" />
-    <input type="text" name="number" value="" placeholder="Phone" />
-    <input type="text" name="city" value="" placeholder="City" />
+    <input asp-for="Person.Name" placeholder="Name" />
+    <input asp-for="Person.Number" placeholder="Phone" />
+    <input asp-for="Person.City" placeholder="City" />
     <input type="submit" value="Add User" />
 </form>
 
@@ -22,7 +22,7 @@
 </form>
 
 <table>
-    @foreach (var item in Model)
+    @foreach (var item in Model.People)
     {
         @await Html.PartialAsync("_SingUp", item)
 
