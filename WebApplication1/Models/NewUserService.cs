@@ -16,8 +16,8 @@ namespace MVCData.Models
         {
             CreateUser(name: "Qassem", number: "0725015455", city: "Nässjö");
             CreateUser(name: "Alle", number: "0725014355", city: "Nässjö");
-            CreateUser(name: "Ali", number: "0787014355", city: "Nässjö");
-            CreateUser(name: "Anna", number: "0723454355", city: "Nässjö");
+            CreateUser(name: "Ali", number: "0787014355", city: "Alvesta");
+            CreateUser(name: "Anna", number: "0723454355", city: "Växjö");
 
 
         }

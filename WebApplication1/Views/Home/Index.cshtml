@@ -7,7 +7,7 @@
 
 <h1>Home Index</h1>
 
-<form method="post" asp-action="SingUp">
+<form method="post" id="addPersonForms">
     <input asp-for="Person.Name" placeholder="Name" />
     <input asp-for="Person.Number" placeholder="Phone" />
     <input asp-for="Person.City" placeholder="City" />
@@ -20,15 +20,10 @@
         <input type="submit" value="Filter" />
     </p>
 </form>
+<div id="person_form"></div>
 
-<table>
-    @foreach (var item in Model.People)
-    {
-        @await Html.PartialAsync("_SingUp", item)
+@await Html.PartialAsync("_People", Model.People)
 
-    }
-
-</table>
 
 
 

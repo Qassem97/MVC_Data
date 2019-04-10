@@ -1,0 +1,19 @@
+﻿@model List<Person>
+<div class="container" id="personListId">
+
+    <div class="row">
+
+        @*<div class="col">Id</div>*@
+        <div class="col">Name</div>
+        <div class="col">Number</div>
+        <div class="col">City</div>
+        <div class="col">Options</div>
+
+    </div>
+    @foreach (var item in Model)
+    {
+        @await Html.PartialAsync("_Person", item)
+
+    }
+
+</div>
