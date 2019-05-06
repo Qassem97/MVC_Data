@@ -10,11 +10,16 @@
 </head>
 <body>
 
-    <header>
-        <h1>New Person</h1>
-        <a asp-action="Index" asp-controller="Home">Home</a>
+    <header class="nav navbar align-items-center">
+        <h1 class="navbar-brand">New Person</h1>
+        <div class="nav mr-auto">
+            <a asp-action="Index"
+               asp-controller="Home"
+               class="nav-item">Home</a>
+        </div>
+        
     </header>
-    <div>
+    <div class="container">
         @RenderBody()
     </div>
 
