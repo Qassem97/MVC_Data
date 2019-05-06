@@ -1,1 +1,46 @@
-﻿
+﻿@model Person
+
+<div id="editPersonId_@Model.Id">
+
+
+    <form method="post"
+          id="editPersonForms_@Model.Id"
+          asp-controller="Home"
+          asp-action="Edit">
+        <input asp-for="Name" id="personName" placeholder="Name" />
+        <input asp-for="Number" id="personNumber" placeholder="Phone" />
+        <input asp-for="City" id="personCity" placeholder="City" />
+        <input asp-for="Id" id="personId" type="hidden" />
+        <button type="submit">
+            Save
+        </button>
+    </form>
+    <script>
+    $('#editPersonForms_@Model.Id').submit(function (event) {
+    //console.log('tes');
+    event.preventDefault();
+    $.post("/Home/Edit/@Model.Id",
+        {
+            Id: $("#personId").val(),
+            Name: $("#personName").val(), //Reading text box values using Jquery
+            Number: $("#personNumber").val(),
+            City: $("#personCity").val()
+        },
+        function (data, status) {
+            if (status === 'success') {
+                $('#editPersonForms_@Model.Id').replaceWith(data);
+            }
+            else if (status === 'notfound') {
+                alert("Your list is old, please refrech.");
+            }
+            else if (status === 'badrequest') {
+                alert("Your list is corrupt, please refrech.");
+            }
+            else {
+                console.log('error:' + status);
+            }
+        }
+    );
+});
+    </script>
+</div>

@@ -28,13 +28,13 @@ namespace MVCData.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToAction("Index");
+                return BadRequest();
 
             }
             else
             {
                 _personService.CreateUser(person.Name, person.Number, person.City);
-                return RedirectToAction("Index");
+                return PartialView("_People", _personService.GetPeople());
             }
 
         }
@@ -51,9 +51,11 @@ namespace MVCData.Controllers
             else
             {
                 var people = _personService.GetPeople()
-                .Where(m => m.Name.Contains(searchString) || m.City.Contains(searchString));// lambda
-
-                return View(people.ToList());
+                .Where(m => m.Name.Contains(searchString) || m.City.Contains(searchString))
+                .ToList();// lambda
+                var vm = new PersonViewModel();
+                vm.People = people;
+                return View(vm);
             }
             //var people = from m in _personService.GetPeople()   //It works!!
             //             where m.Name.Contains(searchString)
@@ -64,25 +66,36 @@ namespace MVCData.Controllers
         {
             _personService.DeletePerson(id);
 
-            return RedirectToAction("Index");
+            return Ok();
         }
         public IActionResult SingUp()
         {
             Person model = new Person();
             return PartialView("_SingUp", model);
         }
-        [HttpGet]
+
         public IActionResult Edit(int id)
         {
-            _personService.FindPerson(id);
-            return PartialView("_Edit", _personService.FindPerson(id));
+            var person = _personService.FindPerson(id);
+            return PartialView("_Edit", person);
         }
 
         [HttpPost]
-        public IActionResult Edit(Person person)
+        public IActionResult Edit(int id, Person person)
         {
-            _personService.UpdatePerson(person);
-            return PartialView("_Edit", _personService.UpdatePerson(person));
+            if (!ModelState.IsValid)
+            {
+                return PartialView("_Edit", person);
+            }
+            if(id != person.Id)
+            {
+                return BadRequest();
+            }
+            if (_personService.UpdatePerson(person))
+            {
+                return PartialView("_Person", person);
+            }
+            return PartialView("_Edit", person);
 
         }
     }
